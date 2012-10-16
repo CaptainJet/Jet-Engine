@@ -8,6 +8,8 @@ require 'net/https'
 
 include Gosu
 
+enable_undocumented_retrofication
+
 Dir["src/**/*.rb"].cycle(1) {|a| require_relative(a) }
 
 class GosuGame < Window
