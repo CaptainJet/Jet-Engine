@@ -4,12 +4,21 @@ require 'yaml'
 require 'base64'
 require 'open-uri'
 require 'net/https'
+require 'fileutils'
+require 'profile'
 
 include Gosu
 
 enable_undocumented_retrofication
 
 Dir[File.join(Dir.pwd, 'src', '**',  '*.rb')].each {|file| require file }
+files = Dir["**/*.*"]
+excluded_files = ["data/Config.yml", "README.txt", "data/Manifest.yml"]
+hash = {}
+(files - excluded_files).each {|a|
+  hash[a] = "1.0.0"
+}
+File.open("data/Manifest.yml", "w+") {|a| a.write hash.to_yaml }
 
 class GosuGame < Window
   
@@ -17,6 +26,7 @@ class GosuGame < Window
     super(width, height, fullscreen)
     self.caption = Function::CONFIG[:Title]
     Tasks.new_task_loop(60) { Audio.se_update }
+    Thread.new { FileManager.check_for_updates } if Function::CONFIG[:Update]
   end
   
   def update

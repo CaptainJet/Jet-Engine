@@ -6,11 +6,12 @@ module Function
     :Title => "Tevak and Jet",
     :Width => 544,
     :Height => 416,
-    :Fullscreen => false
-  }.merge!(YAML.load_file("Config.yml"))
+    :Fullscreen => false,
+    :Update => false
+  }.merge!(YAML.load_file(File.join("data", "Config.yml")))
   
   def load_file(filename)
-    name = filename.dup.prepend("data\\")
+    name = File.join("data", filename)
     fr = File.open(name, "rb") {|a| Marshal.load(a) }
     fr = Base64.decode64(Zlib::Inflate.inflate(fr))
     fr = Marshal.load(fr)
@@ -18,7 +19,7 @@ module Function
   end
   
   def save_file(obj, filename)
-    name = filename.dup.prepend("data\\")
+    name = File.join("data", filename)
     ar = Marshal.dump(obj)
     ar = Base64.encode64(ar)
     ar = Zlib::Deflate.deflate(ar, 9)
