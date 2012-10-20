@@ -1,6 +1,5 @@
 require 'gosu'
 require 'zlib'
-require 'texplay'
 require 'yaml'
 require 'base64'
 require 'open-uri'
@@ -10,7 +9,7 @@ include Gosu
 
 enable_undocumented_retrofication
 
-Dir["src/**/*.rb"].cycle(1) {|a| require_relative(a) }
+Dir[File.join(Dir.pwd, 'src', '**',  '*.rb')].each {|file| require file }
 
 class GosuGame < Window
   

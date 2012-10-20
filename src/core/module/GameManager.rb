@@ -1,12 +1,10 @@
 module GameManager
-
-  class << self
-    
-    attr_reader :scene
-    
-  end
   
   module_function
+  
+  def scene
+    @scene
+  end
   
   def scene=(scene)
     @scene.terminate if @scene

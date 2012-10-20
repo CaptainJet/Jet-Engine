@@ -14,7 +14,7 @@ module Input
     return 4 if press?(KbLeft)
     return 6 if press?(KbRight)
     return 8 if press?(KbUp)
-    return 0
+    0
   end
   
   def dir8
@@ -22,7 +22,7 @@ module Input
     return 3 if press?(KbDown) && press?(KbRight)
     return 7 if press?(KbUp) && press?(KbLeft)
     return 9 if press?(KbUp) && press?(KbRight)
-    return dir4
+    dir4
   end
   
   def add_key(key)
@@ -30,11 +30,11 @@ module Input
   end
   
   def trigger?(key)
-    return @keys.include?(key)
+    @keys.include?(key)
   end
   
   def press?(key)
     return Graphics.gosu_window.button_down?(key)
-    return false
+    false
   end
 end

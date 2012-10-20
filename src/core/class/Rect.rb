@@ -7,7 +7,10 @@ class Rect
   end
   
   def set(x, y, width, height)
-    @x, @y, @width, @height = x, y, width, height
+    @x = x
+    @y = y
+    @width = width
+    @height = height
   end
   
   def intersects?(rect)

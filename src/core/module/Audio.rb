@@ -2,10 +2,10 @@ module Audio
 
   module_function
   
-  LOAD_PATH = "./media/audio"
+  LOAD_PATH = File.join(Dir.pwd, 'media', 'audio')
   
   def bgm_play(filename, volume = 100)
-    filename = "#{LOAD_PATH}/bgm/#{filename}.ogg"
+    filename = File.join(LOAD_PATH, "bgm", filename) + ".ogg"
     bgm_stop
     @bgm = Song.new(Graphics.gosu_window, filename)
     @bgm.volume = volume / 100.0
@@ -31,7 +31,7 @@ module Audio
   end
   
   def bgs_play(filename, volume = 100, pitch = 100)
-    filename = "#{LOAD_PATH}/bgs/#{filename}.ogg"
+    filename = File.join(LOAD_PATH, "bgs", filename) + ".ogg"
     bgs_stop
     @bgs = Sample.new(Graphics.gosu_window, filename).play(volume / 100.0, pitch / 100.0, true)
     @bgs_volume = volume / 100.0
@@ -55,7 +55,7 @@ module Audio
   end
 
   def se_play(filename, volume = 100)
-    filename = "#{LOAD_PATH}/se/#{filename}.ogg"
+    filename = File.join(LOAD_PATH, "se", filename) + ".ogg"
     @se = [] if @se == nil
     @se << Sample.new(Graphics.gosu_window, filename).play(volume / 100.0, pitch / 100.0, false)
   end
