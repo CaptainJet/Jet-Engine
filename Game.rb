@@ -1,8 +1,6 @@
 require 'gosu'
 require 'zlib'
 require 'yaml'
-require 'open-uri'
-require 'net/https'
 require 'fileutils'
 require 'profile'
 
