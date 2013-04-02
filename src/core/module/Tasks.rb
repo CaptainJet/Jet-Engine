@@ -37,11 +37,11 @@ module Tasks
   
   def update
     return if @pause
-    @tasks.cycle(1) {|task|
+    @tasks.each {|task|
       task.update
     }
     @tasks.collect! {|task| !task.called }
-    @loop_tasks.cycle(1) {|a|
+    @loop_tasks.each {|a|
       a.update
       a.reset if a.called
     }

@@ -19,15 +19,6 @@ module Audio
   
   def bgm_fade(time)
     return unless @bgm
-    Thread.new {
-      incs = @bgm_volume / time
-      until @bgm_volume <= 0
-        @bgm_volume -= incs
-        @bgm.volume -= incs
-        sleep 0.01
-      end
-      bgm_stop
-    }
   end
   
   def bgs_play(filename, volume = 100, pitch = 100)
@@ -43,15 +34,6 @@ module Audio
   
   def bgs_fade(time)
     return unless @bgs
-    Thread.new {
-      incs = @bgs_volume / time
-      until @bgs_volume <= 0
-        @bgs_volume -= incs
-        @bgs.volume -= incs
-        sleep 0.01
-      end
-      bgs_stop
-    }
   end
 
   def se_play(filename, volume = 100)
@@ -62,7 +44,7 @@ module Audio
   
   def se_stop
     @se = [] if @se == nil
-    @se.cycle(1) {|a| a.stop }
+    @se.each {|a| a.stop }
     @se.clear
   end
   

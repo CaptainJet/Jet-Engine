@@ -3,7 +3,7 @@ module Function
   module_function
   
   CONFIG = {
-    :Title => "Tevak and Jet",
+    :Title => "Jet",
     :Width => 544,
     :Height => 416,
     :Fullscreen => false,
@@ -13,7 +13,7 @@ module Function
   def load_file(filename)
     name = File.join("data", filename)
     fr = File.open(name, "rb") {|a| Marshal.load(a) }
-    fr = Base64.decode64(Zlib::Inflate.inflate(fr))
+    fr = Zlib::Inflate.inflate(fr)
     fr = Marshal.load(fr)
     fr
   end
@@ -21,7 +21,6 @@ module Function
   def save_file(obj, filename)
     name = File.join("data", filename)
     ar = Marshal.dump(obj)
-    ar = Base64.encode64(ar)
     ar = Zlib::Deflate.deflate(ar, 9)
     File.open(name, "wb") {|a| 
       Marshal.dump(ar, a) 

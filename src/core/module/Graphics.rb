@@ -20,7 +20,7 @@ module Graphics
   module_function
   
   def update
-    @@gosu_sprites.cycle(1) {|sprite|
+    @@gosu_sprites.each {|sprite|
       sprite.draw
     }
     if @draw_color.alpha != 0
@@ -31,25 +31,9 @@ module Graphics
   end
   
   def fadeout(duration)
-    Thread.new {
-      rate = @brightness / duration.to_f
-      until @brightness <= 0
-        self.brightness -= rate
-        sleep 1.0 / frame_rate
-      end
-      self.brightness = 0
-    }
   end
   
   def fadein(duration)
-    Thread.new { 
-      rate = 255 / duration.to_f
-      until @brightness >= 255
-        self.brightness += rate
-        sleep 1.0 / frame_rate
-      end
-      self.brightness = 255
-    }
   end
   
   def width
@@ -58,10 +42,6 @@ module Graphics
   
   def height
     gosu_window.height
-  end
-  
-  def resize_screen(w, h)
-    reform_window(w, h, fullscreen?, gosu_window.update_interval)
   end
   
   def add_sprite(sprite)
@@ -74,16 +54,5 @@ module Graphics
   
   def fullscreen?
     gosu_window.fullscreen?
-  end
-  
-  def set_fullscreen(bool)
-    return if bool == fullscreen?
-    reform_window(width, height, bool, gosu_window.update_interval)
-  end
-  
-  def reform_window(w, h, f, fps)
-    Graphics.gosu_window.close
-    Graphics.gosu_window = GosuGame.new(w, h, f, fps)
-    Graphics.gosu_window.show
   end
 end

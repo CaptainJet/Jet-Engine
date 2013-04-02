@@ -1,0 +1,4 @@
+Graphics - Fadein, fadeout
+Audio - BGM fadeout, BGS fadeout
+
+Other stuff too

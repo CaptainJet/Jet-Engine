@@ -12,6 +12,8 @@ module GameManager
   end
   
   def update
+    Tasks.update
+    Input.update
     @scene.update
   end
 end

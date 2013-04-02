@@ -34,7 +34,6 @@ module Input
   end
   
   def press?(key)
-    return Graphics.gosu_window.button_down?(key)
-    false
+    Graphics.gosu_window.button_down?(key)
   end
 end
