@@ -1,14 +1,12 @@
 require 'gosu'
 require 'zlib'
 require 'yaml'
-require 'fileutils'
-require 'profile'
 
 include Gosu
 
 enable_undocumented_retrofication
 
-Dir[File.join(Dir.pwd, 'src', '**',  '*.{rb,so}')].each {|file| require file }
+Dir[File.join(Dir.pwd, 'src', '**',  '*.{rb,so}')].sort.each {|file| require file }
 
 class GosuGame < Window
   
@@ -37,5 +35,5 @@ class GosuGame < Window
 end
 
 Graphics.gosu_window = GosuGame.new
-GameManager.scene = Scene_Test.new
+GameManager.scene = Scene.new
 Graphics.gosu_window.show

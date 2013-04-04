@@ -1,5 +1,11 @@
 module Audio
 
+  class << self
+    
+    attr_reader :bgs, :bgm, :se
+    
+  end
+
   module_function
   
   LOAD_PATH = File.join(Dir.pwd, 'media', 'audio')
@@ -19,6 +25,10 @@ module Audio
   
   def bgm_fade(time)
     return unless @bgm
+    incs = @bgm_volume / time
+    time.times do |i|
+      Tasks.new_task(i + 1) { @bgm.volume -= incs if @bgm == Audio.bgm }
+    end
   end
   
   def bgs_play(filename, volume = 100, pitch = 100)
@@ -34,6 +44,10 @@ module Audio
   
   def bgs_fade(time)
     return unless @bgs
+    incs = @bgs_volume / time
+    time.times do |i|
+      Tasks.new_task(i + 1) { @bgs.volume -= incs if @bgs == Audio.bgs }
+    end
   end
 
   def se_play(filename, volume = 100)
